@@ -1,0 +1,64 @@
+name: MARKET PULSE 朝夜の自動分析とWeb公開
+
+on:
+  schedule:
+    - cron: '7 7 * * 1-5'
+      timezone: 'Asia/Tokyo'
+    - cron: '7 20 * * 1-5'
+      timezone: 'Asia/Tokyo'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: market-pulse-publish
+  cancel-in-progress: false
+
+jobs:
+  update-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 保存したソースと履歴を取得
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Pythonを準備
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: 必要なパッケージをインストール
+        run: python -m pip install -r requirements.txt
+      - name: 株価取得と判定・的中率更新
+        run: python generate_signals.py --session auto
+      - name: 予想と履歴をリポジトリへ保存
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data.json history.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update market signals and accuracy'
+            git push
+          else
+            echo '保存する新しいデータはありません'
+          fi
+      - name: Web公開用ファイルを準備
+        run: |
+          mkdir -p site
+          cp index.html data.json site/
+      - name: GitHub Pagesを初期設定
+        uses: actions/configure-pages@v5
+      - name: Web公開用ファイルを送る
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './site'
+      - name: GitHub Pagesへ公開
+        id: deployment
+        uses: actions/deploy-pages@v4
