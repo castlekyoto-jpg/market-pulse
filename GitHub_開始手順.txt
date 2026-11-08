@@ -1,0 +1,55 @@
+# MARKET PULSE：PCを切っても朝夜自動更新する設定（GitHub用）
+
+■ はじめに
+このZIPはVer.3を元に、GitHub Pagesへの自動再公開に対応した版です。
+※ Yahoo Finance (yfinance) のデータ利用条件には注意してください。公開サイトで
+   株価を再配信する前に、データ提供元の許可・条件をご確認ください。
+   GitHub Pagesの公開ページは原則、URLを知る人が閲覧できます。
+
+■ やり方（Windowsでブラウザーだけでも設定可能）
+1. https://github.com/ に無料アカウントでログイン
+2. 右上の「＋」→「New repository」で新しいリポジトリを作る
+   Repository name: market-pulse　Visibility: Public　→「Create repository」
+   ※ 公開は嫌ならPrivateでActionsだけを動かせます。ただしFreeで
+      非公開リポジトリのPages公開はできません。
+3. GitHubのリポジトリ画面で「Add file」→「Upload files」を押す
+   解凍したこのZIPの「中のファイルとフォルダー」をアップロード。
+   【重要】index.htmlがリポジトリ直下にあり、
+   .github/workflows/update.yml が見えることを確認する。
+   アップロードするとき、ZIPそのものだけをアップロードしない。
+   「Commit changes」をクリックしてmainブランチに保存する。
+4. Settings → Pages → Build and deployment → Source を「GitHub Actions」にする
+5. Actions →「MARKET PULSE 朝夜の自動分析とWeb公開」→「Run workflow」
+   → branch「main」→「Run workflow」で手動テスト実行
+6. Actions画面で緑色のチェックマークが付いたら成功。
+   Settings → Pages に表示される「Visit site」をクリックすると見られる。
+   サイトのURL例： https://あなたのID.github.io/market-pulse/
+
+■ 自動更新時刻（すべて日本時間）
+平日（月～金）7:07、20:07。GitHub Actionsのスケジュール実行は遅延や
+スキップが起きる場合があります。祝日でもスケジュールは走ります。
+公開サイトで表示している株価は米金先物GC=F、USDJPY、EURJPY、日本株です。
+COMEX金先物はXMのXAUUSD現物GOLDではありません。
+
+■ GitHubで .github フォルダーをアップロードしにくいとき
+GitHubの「Add file」→「Create new file」でファイル名欄に
+ .github/workflows/update.yml
+と入力し、このZIPの .github/workflows/update.yml の内容を
+テキストエディタで開いて貼り付け、mainに「Commit changes」してください。
+（このワークフローファイルがないとActionsは実行できません。）
+
+■ 手元の過去の的中率履歴も引き継ぐには
+Ver.3で生成された data.json と history.json を消さずに保存し、
+希望する場合はその2ファイルをリポジトリ直下に追加アップロードします。
+ただしPublicリポジトリは予想履歴・データ内容が他人にも見えることがあります。
+
+■ Actionsでエラーになるとき
+* ワークフローが見えない → .github/workflows/update.yml の場所を確認。
+* git push に失敗 → Settings → Actions → General → Workflow permissions を確認。
+  このファイルには contents: write を設定済みですが組織設定が制限する場合があります。
+* Pages公開に失敗 → Settings → Pages → SourceがGitHub Actionsか確認。
+* Yahooから一部取得できない → API制限や廃止銘柄の可能性があり、必ずしも設定ミスではない。
+* 定時実行が止まる → 公開リポジトリは60日間非アクティブだとscheduleが無効化される場合がある。
+
+更新後はブラウザーでページを再読み込みしてください。
+※ 個人検証用で、売買注文はしません。方向一致率は実取引の勝率ではありません。

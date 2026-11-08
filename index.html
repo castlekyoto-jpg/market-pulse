@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1624">
+  <meta name="description" content="GOLD、FX、日本株、低位株の買い・売り・様子見を朝夜更新するテクニカルシグナル画面">
+  <title>MARKET PULSE｜FX・GOLD・日本株 シグナル</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0a121e;--surface:#111f2e;--surface2:#17283a;--edge:#273b50;--text:#eef5f9;--muted:#91a6b8;--green:#35d5a8;--red:#ff797d;--amber:#f7c678;--blue:#8ab7ff}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -12%,#1c3455 0,transparent 33%),var(--bg);font-family:Inter,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased}button,input{font:inherit}button{cursor:pointer}a{color:inherit}button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:3px} .shell{max-width:1500px;margin:0 auto;padding:0 32px 70px}
+    .top{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:26px 0 25px;border-bottom:1px solid var(--edge);flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#2c7d8e,#32dfac);display:grid;place-items:center;color:#09272f;font-size:25px;font-weight:900;box-shadow:0 0 35px #1fcba524}.brand h1{margin:0;font-size:18px;letter-spacing:.08em;font-weight:800}.brand small{color:var(--muted);font-size:11px;letter-spacing:.14em}.top-right{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.pulse{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px}.pulse i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px #36d6ab16}.mini-button{border:1px solid #3b5268;background:#142638;color:#eaf2f7;border-radius:10px;padding:10px 15px;font-weight:700}.mini-button:hover{background:#21394d}.tiny-sep{color:#516479}
+    .intro{display:flex;justify-content:space-between;align-items:end;gap:24px;margin:35px 0 25px;flex-wrap:wrap}.eyebrow{color:#6ddabf;font-size:11px;font-weight:800;letter-spacing:.25em;text-transform:uppercase}.intro h2{font-size:clamp(25px,3vw,39px);letter-spacing:-.045em;line-height:1.3;margin:8px 0}.intro p{color:var(--muted);margin:0;line-height:1.9;font-size:13px}.tabs{display:flex;gap:4px;background:#142337;border:1px solid #283d54;padding:5px;border-radius:12px}.tabs button{background:transparent;border:0;padding:12px 15px;border-radius:8px;color:#9aafbf;font-weight:700;white-space:nowrap}.tabs button.active{background:#29425d;color:white;box-shadow:0 4px 16px #0003}
+    .banner{display:grid;grid-template-columns:1.6fr .85fr;gap:20px;margin:20px 0 25px}.feature{border-radius:17px;background:linear-gradient(110deg,#173d45,#153d48 48%,#152d45);border:1px solid #316065;padding:28px;position:relative;overflow:hidden;min-height:174px}.feature::after{content:"";position:absolute;width:250px;height:250px;border:1px solid #3cb4a238;border-radius:50%;right:-80px;top:-160px;box-shadow:0 0 0 65px #3cb4a20a,0 0 0 120px #3cb4a20a}.feature .eyebrow{color:#8ceacb}.feature h3{font-size:24px;margin:13px 0 10px;letter-spacing:-.04em;position:relative;z-index:1}.feature p{margin:0;line-height:1.85;color:#c1d9d8;font-size:13px;max-width:620px;position:relative;z-index:1}.feature .feature-pills{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}.feature-pills span{border:1px solid #67988775;color:#bce6d9;background:#122e354e;border-radius:50px;padding:5px 10px;font-size:11px;font-weight:700}.update-panel{border:1px solid var(--edge);border-radius:17px;padding:24px;background:var(--surface);display:flex;flex-direction:column;justify-content:center;gap:8px}.update-panel .label{color:var(--muted);letter-spacing:.08em;font-size:12px}.update-panel strong{font-size:22px;font-weight:800;letter-spacing:-.025em}.update-panel p{color:var(--muted);font-size:12px;line-height:1.8;margin:2px 0 0}.update-panel .tag{color:var(--green);font-size:11px;font-weight:800}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:30px}.stat{border:1px solid var(--edge);border-radius:15px;background:var(--surface);padding:20px 21px;min-height:124px}.stat .label{color:var(--muted);font-size:12px;margin-bottom:9px;display:flex;align-items:center;gap:8px}.stat .dot{width:8px;height:8px;border-radius:3px;background:#849aad}.stat .value{font-weight:800;letter-spacing:-.04em;font-size:33px}.stat .hint{font-size:11px;color:var(--muted);margin-top:5px}.stat.buy .dot{background:var(--green)}.stat.sell .dot{background:var(--red)}.stat.wait .dot{background:var(--amber)}.stat.buy .value{color:var(--green)}.stat.sell .value{color:var(--red)}.stat.wait .value{color:var(--amber)}
+    .section-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px}.section-head h3{font-size:19px;letter-spacing:-.025em;margin:0}.section-head span{color:var(--muted);font-size:12px}.top-picks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}.pick{background:var(--surface);border:1px solid var(--edge);border-radius:15px;padding:21px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;gap:14px}.pick-head{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}.pick .category{font-size:10px;letter-spacing:.07em;color:#88c5d4;font-weight:800}.pick h4{font-size:16px;margin:8px 0 3px;line-height:1.5}.pick .symbol{font-size:11px;color:var(--muted)}.pick .price{font-size:23px;font-weight:800;letter-spacing:-.035em}.pick .sub{font-size:11px;color:var(--muted);margin-top:5px}.signal{font-size:11px;letter-spacing:.05em;border-radius:7px;padding:7px 9px;font-weight:800;white-space:nowrap}.signal.BUY{color:var(--green);background:#35d5a81b}.signal.SELL{color:var(--red);background:#ff797d19}.signal.WAIT{color:var(--amber);background:#f7c6781e}.strength{display:flex;align-items:center;gap:11px;color:var(--muted);font-size:11px}.bar{height:5px;background:#2b3e51;border-radius:50px;flex:1;overflow:hidden}.bar > i{display:block;height:100%;border-radius:50px;background:var(--green)}.pick.sell .bar>i{background:var(--red)}.pick.wait .bar>i{background:var(--amber)}.pick.empty{justify-content:center;align-items:center;color:var(--muted);text-align:center;line-height:1.8}
+    .table-card{border:1px solid var(--edge);border-radius:17px;overflow:hidden;background:var(--surface)}.table-top{padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--edge)}.table-title{font-weight:800;font-size:17px}.table-title small{font-weight:500;color:var(--muted);font-size:12px;margin-left:9px}.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.select,.search{background:#0e1b2b;color:#d9e8f0;border:1px solid #30465d;border-radius:9px;padding:10px 12px;min-height:39px}.select{max-width:160px}.search{width:183px}.search::placeholder{color:#829aad}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:900px}th{text-align:left;font-size:11px;color:#91a6b8;letter-spacing:.035em;background:#142335;font-weight:700;padding:15px 18px;white-space:nowrap}td{padding:16px 18px;border-top:1px solid #213549;vertical-align:middle;font-variant-numeric:tabular-nums}tbody tr:hover{background:#182a3b}td .name{font-weight:750;font-size:13px;line-height:1.5}td .secondary{font-size:11px;color:var(--muted);margin-top:5px}td .price{font-weight:850;font-size:15px}td .change{font-size:11px;margin-top:5px}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--amber)}.score{font-weight:800}.note{font-size:11px;color:#b1c1cc;line-height:1.6;max-width:285px}.warn{color:#f6c889;font-size:11px;margin-top:5px}.ext{color:var(--blue);text-decoration:none;font-size:11px;font-weight:700}.ext:hover{text-decoration:underline}.empty-msg{padding:35px 24px;line-height:2;color:var(--muted);text-align:center}
+    .bottom{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin-top:24px}.info{padding:24px;background:var(--surface);border:1px solid var(--edge);border-radius:15px}.info h4{margin:0 0 14px;font-size:15px}.info p{font-size:12px;line-height:1.95;color:var(--muted);margin:0}.info strong{color:#dbe6ed}footer{border-top:1px solid var(--edge);padding:26px 0 0;margin-top:30px;font-size:11px;line-height:1.9;color:#8097a9}.inline-badge{background:#243c50;color:#acd3e9;font-size:10px;border-radius:5px;padding:3px 6px;margin-left:6px}
+    .insights{display:grid;grid-template-columns:1.08fr .92fr;gap:16px;margin:30px 0}.insight-card{border:1px solid var(--edge);border-radius:17px;background:var(--surface);padding:22px;min-width:0}.insight-card h3{font-size:18px;margin:0 0 7px}.insight-card .description{font-size:12px;line-height:1.85;color:var(--muted);margin:0 0 18px}.accuracy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.accuracy-kpi{background:#15283a;border:1px solid #2b455a;border-radius:12px;padding:13px}.accuracy-kpi .period{font-size:11px;color:var(--muted)}.accuracy-kpi .percent{font-size:28px;font-weight:850;margin:8px 0 2px;font-variant-numeric:tabular-nums}.accuracy-kpi .detail{font-size:11px;color:var(--muted);line-height:1.7}.category-accuracy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cat-accuracy{display:flex;gap:10px;justify-content:space-between;align-items:center;background:#15283a;padding:13px;border-radius:10px;font-size:12px}.cat-accuracy strong{font-size:15px;font-variant-numeric:tabular-nums}.insight-stack{display:grid;gap:17px}.section-break{margin-top:33px}.rank-opts{display:flex;gap:7px;flex-wrap:wrap}.rank-opts button{padding:9px 11px;border:1px solid #38516a;border-radius:9px;background:#14283a;color:#cddde7;font-weight:700;font-size:12px}.rank-opts button.active{background:#30536b;color:#fff;border-color:#6192aa}.small-table table{min-width:680px}.small-table td{padding:13px 15px}.small-table th{padding:12px 15px}.small-table .name{font-size:12px}.rank-num{font-size:15px;font-weight:850;color:var(--blue)}.daily-table{overflow-x:auto}.daily-table table{min-width:440px}.daily-table td{padding:11px 13px}.daily-table th{padding:11px 13px}.mini-summary{margin-top:8px;font-size:11px;color:var(--muted)}.recent-scroll{max-height:440px;overflow:auto}.recent-scroll table{min-width:750px}.muted{color:var(--muted)}
+    @media(max-width:920px){.insights{grid-template-columns:1fr}}
+    @media(max-width:920px){.shell{padding:0 19px 50px}.banner{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.top-picks{grid-template-columns:1fr 1fr}.top-picks .pick:last-child{display:none}.bottom{grid-template-columns:1fr}}
+    @media(max-width:600px){.insight-card{padding:17px}.accuracy-kpi{padding:10px}.accuracy-kpi .percent{font-size:24px}.accuracy-grid{gap:7px}.category-accuracy{grid-template-columns:1fr 1fr}
+    .top{padding:20px 0}.top-right{gap:9px}.pulse{font-size:11px}.intro{margin-top:27px}.intro h2{font-size:27px}.tabs{width:100%}.tabs button{flex:1}.banner{margin-top:18px}.feature{padding:21px}.feature h3{font-size:22px}.stats{gap:10px}.stat{padding:14px}.stat .value{font-size:29px}.top-picks{grid-template-columns:1fr}.top-picks .pick:last-child{display:flex}.table-top{padding:17px}.filters{width:100%}.select{flex:1;min-width:110px}.search{flex:1;min-width:160px}.bottom{gap:12px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="top">
+      <div class="brand"><div class="logo" aria-hidden="true">⌁</div><div><h1>MARKET PULSE</h1><small>FX · GOLD · JAPAN STOCKS</small></div></div>
+      <div class="top-right"><div class="pulse"><i aria-hidden="true"></i><span id="top-status">朝・夜の自動分析モード</span></div><span class="tiny-sep">|</span><button class="mini-button" id="refresh" type="button">⟳ 画面を更新</button></div>
+    </header>
+    <div class="intro">
+      <div><div class="eyebrow">YOUR DAILY MARKET WATCHLIST</div><h2>相場の動きを、一目で判断。</h2><p>GOLD・FX・日本株・低位株を分析し、テクニカル指標から買い・売り・様子見を表示します。</p></div>
+      <div class="tabs" role="group" aria-label="表示する時間帯">
+        <button class="active" data-session="latest" type="button">最新</button><button data-session="morning" type="button">☀ 朝 7:00</button><button data-session="night" type="button">☾ 夜 20:00</button>
+      </div>
+    </div>
+    <section class="banner">
+      <div class="feature"><div class="eyebrow">TECHNICAL MARKET OUTLOOK</div><h3 id="feature-title">マーケット分析レポート</h3><p id="feature-copy">日本時間の平日7:07・20:07に更新する構成です。初回データ取得後にシグナルが表示されます。</p><div class="feature-pills"><span>EMA 20 / 50</span><span>MACD</span><span>RSI 14</span><span>ATRリスク確認</span></div></div>
+      <div class="update-panel"><div class="label">LAST ANALYSIS / 最終分析</div><strong id="update-time">まだデータがありません</strong><div class="tag" id="update-session">初回データ取得待ち</div><p id="data-note">※現在値ではなく、取得できた最終足を用います。画面更新ボタンだけでは市場データを再分析しません。</p></div>
+    </section>
+    <section class="stats" aria-label="シグナル集計">
+      <div class="stat"><div class="label"><i class="dot"></i> 監視銘柄数</div><div class="value" id="stat-total">—</div><div class="hint">分析できた銘柄</div></div>
+      <div class="stat buy"><div class="label"><i class="dot"></i> 買いシグナル</div><div class="value" id="stat-buy">—</div><div class="hint">上昇方向の指標が優勢</div></div>
+      <div class="stat sell"><div class="label"><i class="dot"></i> 売りシグナル</div><div class="value" id="stat-sell">—</div><div class="hint">下落方向の指標が優勢</div></div>
+      <div class="stat wait"><div class="label"><i class="dot"></i> 様子見</div><div class="value" id="stat-wait">—</div><div class="hint">方向感が不十分・リスク注意</div></div>
+    </section>
+    <section class="insights" aria-label="予想と検証の成績">
+      <div class="insight-card"><h3>予想の的中率 <span class="inline-badge">実際の結果で集計</span></h3><p class="description">「買い／売り」を出した後の次の確定足と比較します。日本株は次の営業日終値、GOLD・FXは次の1時間足終値。未判定・同値・データ不整合・様子見は的中率に含みません。</p><div class="accuracy-grid" id="accuracy-grid"><div class="accuracy-kpi">実績データ待ち</div></div><p class="mini-summary" id="accuracy-foot">的中率は運用開始後に記録されます。表示される値は将来の勝率を保証しません。</p></div>
+      <div class="insight-card"><h3>市場別の的中率 <span class="inline-badge">直近30日</span></h3><p class="description">GOLD、FX、日本株、低位株の実測成績を別々に表示します。朝と夜の予想はそれぞれ1件として集計されます。</p><div class="category-accuracy" id="accuracy-categories"><div class="muted">実績データ待ち</div></div></div>
+    </section>
+    <div class="section-head section-break"><h3>低位株ランキング <span class="inline-badge">500円以下 · 監視銘柄から抽出</span></h3><div class="rank-opts" role="group" aria-label="低位株ランキング切り替え"><button class="active" data-rank="buy" type="button">上昇注目順</button><button data-rank="sell" type="button">下落警戒順</button><button data-rank="turnover" type="button">売買代金順</button></div></div>
+    <section class="table-card small-table" aria-label="低位株ランキング"><div class="table-wrap"><table><thead><tr><th>順位</th><th>銘柄</th><th>判定</th><th>参考価格</th><th>指標スコア</th><th>20日平均売買代金</th><th>出来高倍率</th></tr></thead><tbody id="ranking-rows"><tr><td colspan="7" class="empty-msg">価格取得後にランキングが表示されます。</td></tr></tbody></table></div></section>
+    <div class="section-head section-break"><h3>毎日の予想成績</h3><span>発行済みの買い・売り予想を日別に集計</span></div>
+    <section class="table-card daily-table" aria-label="日別的中率"><div class="table-wrap"><table><thead><tr><th>予想日</th><th>予想件数</th><th>的中</th><th>外れ</th><th>判定待ち</th><th>的中率</th></tr></thead><tbody id="daily-rows"><tr><td colspan="6" class="empty-msg">予想実績はまだありません。</td></tr></tbody></table></div></section>
+    <div class="section-head section-break"><h3>直近の予想と答え合わせ</h3><span>原則、予想後の次の確定足で判定（最大50件表示）</span></div>
+    <section class="table-card recent-scroll small-table" aria-label="予想履歴"><div class="table-wrap"><table><thead><tr><th>予想日時</th><th>銘柄</th><th>方向</th><th>予想時価格</th><th>判定価格</th><th>騰落率</th><th>結果</th></tr></thead><tbody id="prediction-rows"><tr><td colspan="7" class="empty-msg">予想履歴はまだありません。</td></tr></tbody></table></div></section>
+    <div class="section-head section-break"><h3>注目シグナル <span class="inline-badge">指標の一致度順</span></h3><span>「買い」は投資助言や利益保証ではありません</span></div>
+    <section class="top-picks" id="picks" aria-live="polite"><article class="pick empty">価格データを取得すると、ここに注目銘柄が表示されます。</article><article class="pick empty">朝・夜の分析結果を切り替えられます。</article><article class="pick empty">自動売買や注文は実行しません。</article></section>
+    <section class="table-card">
+      <div class="table-top"><div class="table-title">シグナル一覧 <small id="table-count">0銘柄</small></div><div class="filters"><select class="select" id="category" aria-label="市場分類"><option value="all">すべての市場</option><option value="GOLD">GOLD</option><option value="FX">FX</option><option value="日本株">日本株</option><option value="低位株">低位株（500円以下）</option></select><select class="select" id="direction" aria-label="判定別"><option value="all">すべての判定</option><option value="BUY">買い</option><option value="SELL">売り</option><option value="WAIT">様子見</option></select><input class="search" id="search" placeholder="銘柄名・証券コード" aria-label="銘柄名または証券コードで検索"></div></div>
+      <div class="table-wrap"><table><thead><tr><th>銘柄 / 分類</th><th>判定</th><th>参考価格・前足比</th><th>指標スコア</th><th>RSI</th><th>判定の根拠 / 注意点</th><th>時点 / 参照</th></tr></thead><tbody id="rows"><tr><td colspan="7" class="empty-msg">価格データ未取得です。初回更新を実行すると、ここに一覧が表示されます。</td></tr></tbody></table></div>
+    </section>
+    <section class="bottom">
+      <div class="info"><h4>どうやって「買い・売り」を決める？</h4><p><strong>20/50期間移動平均、MACD、RSI、5期間騰落</strong>の方向を合算して -5～+5 の指標スコアを算出。+3以上は「買い」、-3以下は「売り」、それ以外は「様子見」とします。流動性不足や大幅変動を検知した買い判定は「様子見」に変更します。</p></div>
+      <div class="info"><h4>データとリスクについて</h4><p>日本株は<strong>日足</strong>、FXとGOLDは<strong>1時間足</strong>を使用。価格は遅延・欠損・休日の持ち越しがあります。低位株の対象は<strong>登録した監視銘柄のうち500円以下</strong>です（東証全銘柄の網羅検索ではありません）。「売り」は弱気判定で、空売りを勧める意味ではありません。</p></div>
+    </section>
+    <footer>© MARKET PULSE — 個人利用向けのテクニカル分析ツール。投資判断の参考情報であり、将来の価格や利益を保証するものではありません。価格データの利用規約・配信条件を遵守し、実売買の前に証券会社・FX業者の表示価格を確認してください。<br>GOLDはCOMEX金先物「GC=F」を参考表示します。XAUUSD現物やXMのGOLDとは異なる商品・価格です。</footer>
+  </div>
+  <script>
+    'use strict';
+    const $=id=>document.getElementById(id);
+    const labels={BUY:'買い',SELL:'売り',WAIT:'様子見'};
+    const sessions={morning:'☀ 朝の分析',night:'☾ 夜の分析'};
+    let db=null,selected='latest',rankMode='buy';
+    const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const num=(n,d=2)=>n==null?'—':Number(n).toLocaleString('ja-JP',{maximumFractionDigits:d,minimumFractionDigits:0});
+    const current=()=>db?.snapshots?.[selected==='latest'?db.latest:selected]||null;
+    const sigBadge=s=>`<span class="signal ${esc(s)}">${labels[s]||'不明'}</span>`;
+    function dateLabel(iso){if(!iso)return '未更新';const d=new Date(iso);return Number.isNaN(d.valueOf())?'日時不明':new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(d)+' JST';}
+    function isOld(iso){return !iso||Date.now()-new Date(iso).getTime()>36*3600000;}
+    function render(){
+      document.querySelectorAll('[data-session]').forEach(b=>{b.classList.toggle('active',b.dataset.session===selected);b.setAttribute('aria-pressed',String(b.dataset.session===selected));});
+      const s=current(),all=s?.items||[];
+      $('update-time').textContent=s?dateLabel(s.generated_at):'まだデータがありません';
+      $('update-session').textContent=s?(sessions[s.session]||'分析済み')+(isOld(s.generated_at)?' · 古いデータ':' · 保存済み'):'初回データ取得待ち';
+      $('top-status').textContent=!s?'データ取得待ち':isOld(s.generated_at)?'最終データが古くなっています':'最新の保存データを表示';
+      $('data-note').textContent=s?`取得成功 ${s.count}/${s.symbols_checked}件 · 取得不可 ${s.failed?.length||0}件。価格はリアルタイムとは限りません。`:'価格取得プログラムを実行すると結果が表示されます。HTMLだけでは株価を取得しません。';
+      $('feature-title').textContent=s?`${sessions[s.session]||'最新'} · ${s.count}銘柄を分析`:'マーケット分析レポート';
+      $('feature-copy').textContent=s?`買い ${all.filter(i=>i.signal==='BUY').length}件、売り ${all.filter(i=>i.signal==='SELL').length}件、様子見 ${all.filter(i=>i.signal==='WAIT').length}件。更新時刻と価格の時点を確認してから判断してください。`:'日本時間の平日7:07・20:07に自動更新する構成です。初回の価格データ取得後にシグナルを表示します。';
+      $('stat-total').textContent=s?num(all.length,0):'—';
+      for(const typ of ['BUY','SELL','WAIT'])$('stat-'+typ.toLowerCase()).textContent=s?num(all.filter(i=>i.signal===typ).length,0):'—';
+      const c=$('category').value,dir=$('direction').value,q=$('search').value.trim().toLowerCase();
+      const filtered=all.filter(i=>(c==='all'||i.category===c)&&(dir==='all'||i.signal===dir)&&(!q||`${i.name} ${i.code} ${i.ticker}`.toLowerCase().includes(q)));
+      $('table-count').textContent=`${filtered.length}銘柄`;
+      renderPicks(all);renderRows(filtered,s);renderPerformance();renderRanking(all);renderRecentPredictions();
+    }
+    function renderPicks(all){
+      let candidates=all.filter(i=>i.signal!=='WAIT').sort((a,b)=>Math.abs(b.score)-Math.abs(a.score));
+      if(candidates.length<3){candidates=candidates.concat(all.filter(i=>i.signal==='WAIT').sort((a,b)=>Math.abs(b.score)-Math.abs(a.score)));}
+      candidates=candidates.slice(0,3);
+      $('picks').innerHTML=candidates.length?candidates.map(i=>`<article class="pick ${i.signal==='SELL'?'sell':i.signal==='WAIT'?'wait':''}"><div class="pick-head"><div><div class="category">${esc(i.category)} · ${esc(i.timeframe)}</div><h4>${esc(i.name)}</h4><div class="symbol">${esc(i.ticker)}</div></div>${sigBadge(i.signal)}</div><div><div class="price">${num(i.price,3)} <span style="font-size:13px;color:var(--muted)">${esc(i.currency)}</span></div><div class="sub">${esc((i.reasons||[]).slice(0,2).join(' / '))}</div></div><div class="strength"><span>指標の一致度 ${Math.abs(i.score)} / 5</span><div class="bar"><i style="width:${Math.abs(i.score)*20}%"></i></div></div></article>`).join(''):'<article class="pick empty">この時間帯の分析結果はありません。最初にデータ更新を実行してください。</article>';
+    }
+    function renderRows(items,s){
+      if(!s){$('rows').innerHTML='<tr><td colspan="7" class="empty-msg">まだデータがありません。READMEに従って初回更新を実行してください。</td></tr>';return;}
+      if(!items.length){$('rows').innerHTML='<tr><td colspan="7" class="empty-msg">指定した条件に該当する銘柄がありません。フィルターを変更してください。</td></tr>';return;}
+      $('rows').innerHTML=items.map(i=>{
+        const diff=i.previous_change_pct;
+        const sign=diff>0?'+':'';
+        const color=diff>0?'green':diff<0?'red':'';
+        const remarks=(i.reasons||[]).slice(0,3).join(' / ');
+        const warns=(i.warnings||[]).join(' / ');
+        const tech=i.stop==null?'':`参考ATR水準：${num(i.stop,3)} / ${num(i.target,3)}`;
+        const url='https://finance.yahoo.com/quote/'+encodeURIComponent(i.ticker);
+        return `<tr><td><div class="name">${esc(i.name)}</div><div class="secondary">${esc(i.ticker)} · ${esc(i.category)}</div></td><td>${sigBadge(i.signal)}</td><td><div class="price">${num(i.price,3)} ${esc(i.currency)}</div><div class="change ${color}">${diff==null?'変化率なし':sign+num(diff)+'%'}</div></td><td><span class="score ${i.score>0?'green':i.score<0?'red':''}">${i.score>0?'+':''}${num(i.score,0)} / 5</span></td><td>${num(i.rsi,1)}</td><td><div class="note">${esc(remarks)}</div>${warns?`<div class="warn">⚠ ${esc(warns)}</div>`:''}${tech?`<div class="secondary">${esc(tech)}</div>`:''}</td><td><div class="secondary">${esc(i.price_at)}</div><div class="secondary">${esc(i.timeframe)}</div><a class="ext" href="${url}" target="_blank" rel="noopener noreferrer">参照先を見る ↗</a></td></tr>`;
+      }).join('');
+    }
+    function rate(p){return p?.checked?num(p.accuracy_pct,1)+'%':'—';}
+    function renderPerformance(){
+      const p=db?.performance||{},periods=p.periods||{};
+      $('accuracy-grid').innerHTML=[7,30,90].map(days=>{const d=periods[String(days)]||{};return `<div class="accuracy-kpi"><div class="period">直近${days}日</div><div class="percent">${esc(rate(d))}</div><div class="detail">的中 ${num(d.hit||0,0)} / 判定 ${num(d.checked||0,0)}件<br>判定待ち ${num(d.pending||0,0)}件</div></div>`;}).join('');
+      $('accuracy-foot').textContent='分母＝的中＋外れ。様子見・同値・判定不能は除外。価格予想ではなく方向の検証で、売買損益や取引コストは含みません。';
+      const categories=p.by_category||{};
+      $('accuracy-categories').innerHTML=['GOLD','FX','日本株','低位株'].map(k=>{const o=categories[k]||{};return `<div class="cat-accuracy"><span>${esc(k)}<br><span class="muted">${num(o.checked||0,0)}件判定</span></span><strong>${esc(rate(o))}</strong></div>`;}).join('');
+      const daily=p.daily||[];
+      $('daily-rows').innerHTML=daily.length?daily.map(r=>`<tr><td>${esc(r.date)}</td><td>${num(r.forecasts,0)}</td><td class="green">${num(r.hit,0)}</td><td class="red">${num(r.miss,0)}</td><td>${num(r.pending,0)}</td><td><strong>${esc(rate({checked:r.hit+r.miss,accuracy_pct:r.accuracy_pct}))}</strong></td></tr>`).join(''):'<tr><td colspan="6" class="empty-msg">実績データはまだありません。データ取得と翌足の確定後に増えていきます。</td></tr>';
+    }
+    function renderRanking(all){
+      document.querySelectorAll('[data-rank]').forEach(b=>{b.classList.toggle('active',b.dataset.rank===rankMode);b.setAttribute('aria-pressed',String(b.dataset.rank===rankMode));});
+      const v=all.filter(i=>i.category==='低位株' && Number.isFinite(Number(i.price)) && i.price<=500 && i.price>0);
+      const rankVal=i=>i.average_turnover==null?-1:i.average_turnover;
+      v.sort((a,b)=>rankMode==='turnover' ? rankVal(b)-rankVal(a) : rankMode==='sell' ? (a.signal==='SELL'?0:1)-(b.signal==='SELL'?0:1) || a.score-b.score || rankVal(b)-rankVal(a) : (a.signal==='BUY'?0:1)-(b.signal==='BUY'?0:1) || b.score-a.score || rankVal(b)-rankVal(a));
+      $('ranking-rows').innerHTML=v.length?v.slice(0,30).map((i,n)=>`<tr><td class="rank-num">${n+1}</td><td><div class="name">${esc(i.name)}</div><div class="secondary">${esc(i.code)}</div></td><td>${sigBadge(i.signal)}</td><td><strong>${num(i.price,2)}円</strong></td><td class="${i.score>0?'green':i.score<0?'red':''}">${i.score>0?'+':''}${num(i.score,0)}</td><td>${i.average_turnover==null?'不明':num(i.average_turnover/10000,0)+'万円'}</td><td>${i.volume_ratio==null?'—':num(i.volume_ratio,2)+'倍'}</td></tr>`).join(''):'<tr><td colspan="7" class="empty-msg">500円以下の監視銘柄の有効データがありません。株価データを取得してください。</td></tr>';
+    }
+    function renderRecentPredictions(){
+      const list=(db?.recent_predictions||[]).filter(r=>r.signal==='BUY'||r.signal==='SELL').slice(0,50);
+      const status={PENDING:'判定待ち',HIT:'的中',MISS:'外れ',FLAT:'同値・除外',UNVERIFIABLE:'判定不能'};
+      $('prediction-rows').innerHTML=list.length?list.map(r=>{const hitColor=r.status==='HIT'?'green':r.status==='MISS'?'red':'muted';return `<tr><td><span class="muted">${esc(dateLabel(r.issued_at))}</span><div class="secondary">${esc(r.session==='morning'?'朝':'夜')}</div></td><td><div class="name">${esc(r.name)}</div><div class="secondary">${esc(r.ticker)}</div></td><td>${sigBadge(r.signal)}</td><td>${num(r.entry_price,3)} ${esc(r.currency)}</td><td>${r.exit_price==null?'—':num(r.exit_price,3)}</td><td class="${r.change_pct>0?'green':r.change_pct<0?'red':''}">${r.change_pct==null?'—':(r.change_pct>0?'+':'')+num(r.change_pct,3)+'%'}</td><td class="${hitColor}"><strong>${esc(status[r.status]||'—')}</strong></td></tr>`;}).join(''):'<tr><td colspan="7" class="empty-msg">買い・売りの予想履歴はまだありません。</td></tr>';
+    }
+    async function load(){
+      $('refresh').disabled=true;$('refresh').textContent='⟳ 読み込み中';
+      try{
+        const res=await fetch('./data.json?_='+Date.now(),{cache:'no-store'});
+        if(!res.ok)throw Error('HTTP '+res.status);
+        db=await res.json();
+        if(!db || !db.snapshots)throw Error('データ形式を確認してください');
+        render();
+      }catch(err){
+        $('top-status').textContent='データ読み込みエラー';
+        $('data-note').textContent='データファイルを読み込めません。READMEの手順でWebサーバーを起動してください。 '+err.message;
+      }finally{$('refresh').disabled=false;$('refresh').textContent='⟳ 画面を更新';}
+    }
+    document.querySelectorAll('[data-session]').forEach(b=>b.addEventListener('click',()=>{selected=b.dataset.session;render()}));
+    for(const id of ['category','direction','search'])$(id).addEventListener(id==='search'?'input':'change',render);
+    document.querySelectorAll('[data-rank]').forEach(b=>b.addEventListener('click',()=>{rankMode=b.dataset.rank;renderRanking(current()?.items||[])}));
+    $('refresh').addEventListener('click',load);
+    load();
+    setInterval(load,5*60*1000);
+  </script>
+</body>
+</html>
